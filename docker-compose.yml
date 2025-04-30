@@ -1,0 +1,13 @@
+services:
+  my_test_service:
+    image: localhost:5000/token-sender
+    user: app_user:app_group
+    deploy:
+      replicas: 1
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=default.json
+      - apparmor=ethers-script-profile
+    cap_drop:
+      - ALL
+    entrypoint: ["tail", "-f", "/dev/null"]

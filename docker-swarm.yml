@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  my_test_service:
+    image: localhost:5000/token-sender
+    user: app_user:app_group
+    secrets:
+      - source: my_test_secret
+        target: my_test_secret
+        uid: '1001'
+        gid: '1001'
+        mode: 0400
+    deploy:
+      replicas: 1
+    cap_drop:
+      - ALL
+
+secrets:
+  my_test_secret:
+    external: true
